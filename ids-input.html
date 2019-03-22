@@ -1,0 +1,78 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="ids-input">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      input {
+        width: 50%;
+        border: 0;
+        font-family: inherit;
+        padding: 10px;
+        font-size: 16px;
+        border-bottom: 1px solid navy;
+        background: none;
+        border-radius: 0;
+      }
+    </style>
+    <input type="[[inputType]]" name="[[inputName]]" id="[[inputName]]">
+    <slot></slot>
+  </template>
+
+  <script>
+    /**
+     * `ids-input`
+     * Componente input
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class IdsInput extends Polymer.Element {
+      static get is() { return 'ids-input'; }
+      static get properties() {
+        return {
+          inputType: {
+            type: String,
+            value: 'text',
+            espectToAttribute: true
+          },
+          inputName: {
+            type: String
+          },
+          isValid: {
+            type: Boolean,
+
+          }
+        };
+      }
+      constructor () {
+        super();
+      }
+
+      ready () {
+        super.ready();
+        this.shadowRoot.querySelector('input').addEventListener('change', this.actionInput.bind(this));
+        this.shadowRoot.querySelector('input').addEventListener('blur', this.actionError.bind(this));
+
+      }
+
+      actionInput(e){
+        console.log(e);
+        const target = e.path[0];
+        let action = this.dispatchEvent(new CustomEvent('input-value',
+        {detail: { name: target.name, value: target.value }, bubbles: true, compose: true}));
+      }
+      actionError(e){
+        console.log(e);
+        let error = '';
+        let error = this.dispatchEvent(new CustomEvent('error-value',
+        {detail: { name: this.name, value: target.value }, bubbles: true, compose: true}));
+      }
+    }
+
+    window.customElements.define(IdsInput.is, IdsInput);
+  </script>
+</dom-module>

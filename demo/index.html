@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>ids-input demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../ids-input.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      html{
+
+      }
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic ids-input demo</h3>
+      <demo-snippet>
+        <template>
+          <label for="nombre">Nombre:</label>
+          <ids-input input-name="nombre" ></ids-input>
+          <label for="email">Email:</label>
+          <ids-input input-type="email" input-name="email"></ids-input>
+          <label for="email_trab">Email Trabajo:</label>
+          <ids-input input-type="email" input-name="email_trab"></ids-input>
+          <label for="Teléfono">Teléfono:</label>
+          <ids-input input-type="tel" input-name="tel"></ids-input>
+
+          <div id="show">
+
+          </div>
+
+        </template>
+      </demo-snippet>
+    </div>
+    <script type="text/javascript">
+    const obj = {};
+    const datos = document.querySelector('#show');
+
+    document.addEventListener('input-value', (e) => {
+      console.log(e);
+      obj[e.detail.name] = e.detail.value;
+      //console.log(obj);
+      datos.innerHTML = JSON.stringify(obj);
+
+    } );
+    </script>
+  </body>
+</html>
